@@ -18,7 +18,7 @@ CLASS z_fizz_buzz DEFINITION
     TYPES: lty_string TYPE STANDARD TABLE OF string WITH DEFAULT KEY.
 
     METHODS:
-      l_logic " logic on the object created
+      get_fizzbuzz_string " logic on the object created
         EXPORTING VALUE(ev_stream_string) TYPE lty_string
                   VALUE(ev_val)           TYPE lty_string.
   PROTECTED SECTION.
@@ -38,16 +38,17 @@ CLASS z_fizz_buzz IMPLEMENTATION.
 
     DATA(lv_object_value) = z_fizz_buzz=>l_create(  ).
     out->write( lv_object_value ).
-    "out->write( z_fizz_buzz=>l_create(  )->l_logic(  ) ).
-    CALL METHOD lv_object_value->l_logic
+    "out->write( z_fizz_buzz=>l_create(  )->get_fizzbuzz_string(  ) ).
+    CALL METHOD lv_object_value->get_fizzbuzz_string
       IMPORTING
         ev_val = DATA(val1).
-    out->write( val1 ).
+*        out->write( | answer : { val1[ 3 ] } | ).
+        out->write( val1 ).
 
 
   ENDMETHOD.
 
-  METHOD l_logic.
+  METHOD get_fizzbuzz_string.
     "string_table is an inbuilt table type for storing strings
     "thus string_table is same as declaring a table type for strings like below
     " types: lty standard table of string with default key
